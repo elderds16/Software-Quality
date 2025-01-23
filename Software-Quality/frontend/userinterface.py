@@ -10,6 +10,8 @@ class UserInterface:
         self.log = Log()
         self.current_username = ""
 
+        # testt
+
     def loginForm(self):
         statusCode = 0
         while statusCode != 200:

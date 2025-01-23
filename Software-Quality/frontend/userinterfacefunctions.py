@@ -13,6 +13,8 @@ class Functions_ui:
     MAX_GENDER_LENGTH = 15
     MAX_WEIGHT_LENGTH = 4
 
+
+    # test2ww
     @staticmethod
     def validate_name(name):
         if len(name) <= Functions_ui.MAX_NAME_LENGTH and re.match(r'^[a-zA-Z\s]+$', name):
