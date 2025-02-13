@@ -25,7 +25,7 @@ jobs:
     - name: Install SonarScanner
       run: |
         # Download the correct SonarScanner version
-        curl -sS https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.8.0.2856/sonar-scanner-cli-4.8.0.2856-linux.zip -o sonar-scanner.zip
+        curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856.zip -o sonar-scanner.zip
         unzip sonar-scanner.zip -d /tmp
         export PATH=$PATH:/tmp/sonar-scanner-4.8.0.2856-linux/bin
         sonar-scanner --version  # Controleer of de installatie succesvol was
