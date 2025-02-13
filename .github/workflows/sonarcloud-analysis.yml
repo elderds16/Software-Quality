@@ -22,6 +22,12 @@ jobs:
       with:
         java-version: '17'
 
+    - name: Install SonarScanner
+      run: |
+        curl -sS https://downloads.sonarsource.com/sonar-scanner-cli/sonar-scanner-4.6.2.2472-linux.tar.gz | tar xz -C /tmp
+        export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
+        sonar-scanner --version  # Controleer of de installatie succesvol was
+
     - name: Cache SonarCloud dependencies
       uses: actions/cache@v2
       with:
@@ -31,7 +37,7 @@ jobs:
     - name: Set up SonarCloud
       uses: SonarSource/sonarcloud-github-action@v1
       with:
-        projectBaseDir: '.'  # Zorg ervoor dat je projectbasismap correct is ingesteld (meestal de root)
-      
+        projectBaseDir: '.'
+
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Zorg ervoor dat de SONAR_TOKEN is ingesteld in GitHub Secrets
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
