@@ -17,7 +17,7 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '11'  # de versie die je nodig hebt voor je project
+        java-version: '17'  # de versie die je nodig hebt voor je project
         distribution: 'adoptopenjdk'  # specificeer de distributie, bijvoorbeeld 'adoptopenjdk'
 
     - name: Cache SonarQube Scanner
