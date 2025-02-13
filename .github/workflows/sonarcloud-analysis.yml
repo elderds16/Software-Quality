@@ -3,12 +3,12 @@ name: SonarQube Analysis
 on:
   push:
     branches:
-      - main  # or the branch you want to trigger the analysis on
+      - main  # of de branch waarop je de analyse wilt uitvoeren
 
 jobs:
   sonarcloud:
     name: Run SonarQube Scanner
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
@@ -17,7 +17,8 @@ jobs:
     - name: Set up JDK
       uses: actions/setup-java@v3
       with:
-        java-version: '11'  # Set this to your project's required Java version
+        java-version: '11'  # de versie die je nodig hebt voor je project
+        distribution: 'adoptopenjdk'  # specificeer de distributie, bijvoorbeeld 'adoptopenjdk'
 
     - name: Cache SonarQube Scanner
       uses: actions/cache@v3
@@ -36,9 +37,11 @@ jobs:
     - name: Run SonarScanner
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}  # Voeg je eigen project key toe aan de secrets
+        SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}  # Voeg je organisatie key toe aan de secrets
       run: |
         sonar-scanner \
-          -Dsonar.projectKey=your_project_key \
-          -Dsonar.organization=your_organization_key \
+          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+          -Dsonar.organization=$SONAR_ORG_KEY \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.login=$SONAR_TOKEN
