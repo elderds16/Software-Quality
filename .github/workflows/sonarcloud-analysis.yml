@@ -30,10 +30,11 @@ jobs:
 
     - name: Install SonarScanner
       run: |
-       # Download a version of SonarScanner that is compatible with Java 17
+        # Download a version of SonarScanner that is compatible with Java 17
         curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856.zip -o sonar-scanner.zip
         unzip sonar-scanner.zip -d /tmp
-        export PATH=$PATH:/tmp/sonar-scanner-4.8.0.2856-linux/bin
+        # Add SonarScanner to PATH for current session
+        echo "/tmp/sonar-scanner-4.8.0.2856-linux/bin" >> $GITHUB_PATH
 
     - name: Run SonarScanner
       env:
