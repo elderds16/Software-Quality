@@ -3,7 +3,7 @@ name: SonarCloud Analysis
 on:
   push:
     branches:
-      - main  # Of een andere branch die je wilt volgen
+      - main
   pull_request:
     branches:
       - main
@@ -28,14 +28,10 @@ jobs:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar-${{ hashFiles('**/*.js', '**/*.vb') }}
 
-    # Set up SonarCloud
     - name: Set up SonarCloud
       uses: SonarSource/sonarcloud-github-action@v1
       with:
-        entryPoint: "/bin/bash"
-        args: |
-          -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-          -Dsonar.organization=${{ secrets.SONAR_ORG }} \
-          -Dsonar.host.url=https://sonarcloud.io
+        projectBaseDir: '.'  # Zorg ervoor dat je projectbasismap correct is ingesteld (meestal de root)
+      
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Zet de SONAR_TOKEN als een omgevingsvariabele
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Zorg ervoor dat de SONAR_TOKEN is ingesteld in GitHub Secrets
