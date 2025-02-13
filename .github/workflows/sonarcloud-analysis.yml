@@ -24,11 +24,11 @@ jobs:
 
     - name: Install SonarScanner
       run: |
-        # Download the correct SonarScanner version
+        # Download a version of SonarScanner that is compatible with Java 17
         curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856.zip -o sonar-scanner.zip
         unzip sonar-scanner.zip -d /tmp
         export PATH=$PATH:/tmp/sonar-scanner-4.8.0.2856-linux/bin
-
+        sonar-scanner --v  # Verifieer of SonarScanner correct is geïnstalleerd
 
     - name: Cache SonarCloud dependencies
       uses: actions/cache@v3
