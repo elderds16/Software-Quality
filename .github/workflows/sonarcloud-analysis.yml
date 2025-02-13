@@ -18,7 +18,7 @@ jobs:
       uses: actions/setup-java@v3
       with:
         java-version: '17'  # de versie die je nodig hebt voor je project
-        distribution: 'adoptopenjdk'  # specificeer de distributie, bijvoorbeeld 'adoptopenjdk'
+        distribution: 'microsoft'  # specificeer de distributie, bijvoorbeeld 'adoptopenjdk'
 
     - name: Cache SonarQube Scanner
       uses: actions/cache@v3
