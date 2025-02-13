@@ -11,7 +11,7 @@ jobs:
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-        SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}
+        SONAR_ORG_KEY: ${{ secrets.SONAR_ORG }}
         SONAR_HOST_URL: "https://sonarcloud.io"
       run: |
         docker run \
@@ -19,6 +19,6 @@ jobs:
           -e SONAR_HOST_URL="${SONAR_HOST_URL}" \
           -e SONAR_TOKEN="${SONAR_TOKEN}" \
           -e SONAR_PROJECT_KEY="${SONAR_PROJECT_KEY}" \
-          -e SONAR_ORG_KEY="${SONAR_ORG_KEY}" \
+          -e SONAR_ORG_KEY="${SONAR_ORG}" \
           -v "${GITHUB_WORKSPACE}:/usr/src" \
           sonarsource/sonar-scanner-cli
