@@ -30,7 +30,7 @@ jobs:
 
     - name: Install SonarScanner
       run: |
-        curl -sSLo sonar-scanner.zip https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.7.0.2747/sonar-scanner-4.7.0.2747-linux.zip
+        curl -sSLo sonar-scanner.zip https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.2.2472/sonar-scanner-cli-4.6.2.2472-linux.zip
         unzip sonar-scanner.zip -d $HOME
         export PATH=$HOME/sonar-scanner-4.7.0.2747-linux/bin:$PATH
 
