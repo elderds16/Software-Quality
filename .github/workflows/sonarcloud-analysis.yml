@@ -3,7 +3,7 @@ name: SonarCloud Analysis
 on:
   push:
     branches:
-      - main
+      - main  # Of een andere branch die je wilt volgen
   pull_request:
     branches:
       - main
@@ -22,17 +22,17 @@ jobs:
       with:
         java-version: '11'
 
-    - name: Install SonarScanner
-      run: |
-        curl -sS https://downloads.sonarsource.com/sonar-scanner-cli/sonar-scanner-4.6.2.2472-linux.tar.gz | tar xz -C /tmp
-        export PATH=$PATH:/tmp/sonar-scanner-4.6.2.2472-linux/bin
-        sonar-scanner --version  # Optioneel: Controleer of de installatie succesvol was
-
     - name: Cache SonarCloud dependencies
       uses: actions/cache@v2
       with:
         path: ~/.sonar/cache
         key: ${{ runner.os }}-sonar-${{ hashFiles('**/*.js', '**/*.vb') }}
+
+    # Verwijder de handmatige installatie van SonarScanner, aangezien we de SonarCloud Action gebruiken
+    - name: Set up SonarCloud
+      uses: SonarSource/sonarcloud-github-action@v1
+      with:
+        sonar-token: ${{ secrets.SONAR_TOKEN }}
 
     - name: SonarCloud Scan
       env:
