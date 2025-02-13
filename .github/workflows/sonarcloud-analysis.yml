@@ -30,7 +30,7 @@ jobs:
 
     - name: SonarCloud Scan
       env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Voeg je SonarCloud-token toe aan GitHub Secrets
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Voeg je SonarCloud-token toe aan GitHub Secretss
       run: |
         sonar-scanner \
           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
