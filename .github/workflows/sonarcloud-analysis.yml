@@ -1,50 +1,24 @@
-name: SonarQube Analysis
-
-on:
-  push:
-    branches:
-      - main  # of de branch waarop je de analyse wilt uitvoeren
-
 jobs:
   sonarcloud:
-    name: Run SonarQube Scanner
+    name: Run SonarQube Scanner with Docker
     runs-on: ubuntu-24.04
 
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up JDK
-      uses: actions/setup-java@v3
-      with:
-        java-version: '17'  # de versie die je nodig hebt voor je project
-        distribution: 'microsoft'  # specificeer de distributie, bijvoorbeeld 'adoptopenjdk'
-
-    - name: Cache SonarQube Scanner
-      uses: actions/cache@v3
-      with:
-        path: ~/.sonar/cache
-        key: ${{ runner.os }}-sonar-${{ hashFiles('**/sonar-project.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-sonar-
-
-    - name: Install SonarScanner
-      run: |
-        # Download a version of SonarScanner that is compatible with Java 17
-        curl -sS https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.8.0.2856.zip -o sonar-scanner.zip
-        unzip sonar-scanner.zip -d /tmp
-        # Add SonarScanner to PATH for current session
-        echo "/tmp/sonar-scanner-4.8.0.2856-linux/bin" >> $GITHUB_PATH
-        
-
-    - name: Run SonarScanner
+    - name: Run SonarScanner in Docker
       env:
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}  # Voeg je eigen project key toe aan de secrets
-        SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}  # Voeg je organisatie key toe aan de secrets
+        SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
+        SONAR_ORG_KEY: ${{ secrets.SONAR_ORG_KEY }}
+        SONAR_HOST_URL: "https://sonarcloud.io"
       run: |
-        sonar-scanner-cli \
-          -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-          -Dsonar.organization=$SONAR_ORG \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=$SONAR_TOKEN
+        docker run \
+          --rm \
+          -e SONAR_HOST_URL="${SONAR_HOST_URL}" \
+          -e SONAR_TOKEN="${SONAR_TOKEN}" \
+          -e SONAR_PROJECT_KEY="${SONAR_PROJECT_KEY}" \
+          -e SONAR_ORG_KEY="${SONAR_ORG_KEY}" \
+          -v "${GITHUB_WORKSPACE}:/usr/src" \
+          sonarsource/sonar-scanner-cli
