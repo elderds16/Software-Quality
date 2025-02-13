@@ -1,7 +1,14 @@
+name: SonarQube Analysis
+
+on:
+  push:
+    branches:
+      - main  # of de branch waarop je de analyse wilt uitvoeren
+
 jobs:
   sonarcloud:
     name: Run SonarQube Scanner with Docker
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
 
     steps:
     - name: Checkout code
